@@ -3,9 +3,9 @@ package com.workintech.s18d4;
 import com.workintech.s18d4.entity.Account;
 import com.workintech.s18d4.entity.Address;
 import com.workintech.s18d4.entity.Customer;
-import com.workintech.s18d4.repository.AccountRepository;
-import com.workintech.s18d4.repository.AddressRepository;
-import com.workintech.s18d4.repository.CustomerRepository;
+import com.workintech.s18d4.dao.AccountRepository;
+import com.workintech.s18d4.dao.AddressRepository;
+import com.workintech.s18d4.dao.CustomerRepository;
 import com.workintech.s18d4.service.AccountServiceImpl;
 import com.workintech.s18d4.service.CustomerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -155,7 +155,7 @@ class MainTest {
         sampleAccountForAccountServiceTest.setId(1L);
         sampleAccountForAccountServiceTest.setAccountName("Savings Account");
         sampleAccountForAccountServiceTest.setMoneyAmount(1000.00);
-        accountService = new AccountServiceImpl(mockAccountRepository);
+        accountService = new AccountServiceImpl(mockAccountRepository, customerService);
 
         sampleCustomerForCustomerServiceTest = new Customer();
         sampleCustomerForCustomerServiceTest.setId(1L);
@@ -321,7 +321,7 @@ class MainTest {
     @DisplayName("AccountService::save")
     void testSaveAccount_AccountService() {
         when(mockAccountRepository.save(any(Account.class))).thenReturn(sampleAccountForAccountServiceTest);
-        Account savedAccount = accountService.save(sampleAccountForAccountServiceTest);
+        Account savedAccount = accountService.save(1L, sampleAccountForAccountServiceTest);
         assertEquals(sampleAccountForAccountServiceTest, savedAccount);
     }
 

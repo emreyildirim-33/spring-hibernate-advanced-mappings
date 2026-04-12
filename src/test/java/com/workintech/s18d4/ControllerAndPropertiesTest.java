@@ -3,7 +3,6 @@ package com.workintech.s18d4;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.workintech.s18d4.controller.AccountController;
 import com.workintech.s18d4.controller.CustomerController;
-import com.workintech.s18d4.dto.CustomerResponse;
 import com.workintech.s18d4.entity.Account;
 import com.workintech.s18d4.entity.Customer;
 import com.workintech.s18d4.service.AccountService;
@@ -18,7 +17,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +25,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -139,7 +138,7 @@ class ControllerAndPropertiesTest {
     @DisplayName("AccountController::save")
     void testSaveAccount() throws Exception {
         when(customerService.find(sampleCustomerForAccountControllerTest.getId())).thenReturn(sampleCustomerForAccountControllerTest);
-        when(accountService.save(any())).thenReturn(sampleAccountForAccountControllerTest);
+        when(accountService.save(anyLong(),any())).thenReturn(sampleAccountForAccountControllerTest);
 
         mockMvc.perform(post("/account/{customerId}", sampleCustomerForAccountControllerTest.getId())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -149,7 +148,7 @@ class ControllerAndPropertiesTest {
                 .andExpect(jsonPath("$.accountName", is(sampleAccountForAccountControllerTest.getAccountName())));
 
         verify(customerService).find(sampleCustomerForAccountControllerTest.getId());
-        verify(accountService).save(any());
+        verify(accountService).save(anyLong(), any());
     }
 
     @Test
@@ -169,7 +168,7 @@ class ControllerAndPropertiesTest {
 
         when(customerService.find(customerId)).thenReturn(sampleCustomerForAccountControllerTest);
         when(accountService.find(sampleAccountForAccountControllerTest.getId())).thenReturn(sampleAccountForAccountControllerTest);
-        when(accountService.save(any())).thenReturn(updatedAccount);
+        when(accountService.save(anyLong(), any())).thenReturn(updatedAccount);
 
         mockMvc.perform(put("/account/{customerId}", customerId)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -205,13 +204,19 @@ class ControllerAndPropertiesTest {
     void testSaveCustomer() throws Exception {
         given(customerService.save(any())).willReturn(sampleCustomerForCustomerControllerTest);
 
-        CustomerResponse expectedResponse = new CustomerResponse(sampleCustomerForCustomerControllerTest.getId(), sampleCustomerForCustomerControllerTest.getEmail(), sampleCustomerForCustomerControllerTest.getSalary());
+        CustomerResponse expectedResponse = new CustomerResponse(
+                sampleCustomerForCustomerControllerTest.getId(),
+                sampleCustomerForCustomerControllerTest.getFirstName(),
+                sampleCustomerForCustomerControllerTest.getLastName(),
+                sampleCustomerForCustomerControllerTest.getEmail(),
+                sampleCustomerForCustomerControllerTest.getSalary()
+        );
 
         mockMvc.perform(post("/customer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(sampleCustomerForCustomerControllerTest)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is((int) expectedResponse.id())))
+                .andExpect(jsonPath("$.id", is(expectedResponse.id().intValue())))
                 .andExpect(jsonPath("$.email", is(expectedResponse.email())))
                 .andExpect(jsonPath("$.salary", is(expectedResponse.salary())));
 
