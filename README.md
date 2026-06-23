@@ -2,13 +2,13 @@
 
 A Java and Spring Boot REST API project focused on advanced Hibernate/JPA entity relationships, layered backend architecture, DTO responses, and CRUD endpoint design.
 
-The project simulates a simple banking domain with customers, addresses, and accounts to practice relational data modeling and entity mapping in a Spring Boot application.
+The project simulates a simple banking domain with customers, addresses, and accounts to demonstrate relational data modeling and entity mapping in a Spring Boot application.
 
 ## Overview
 
-This project was developed as a hands-on backend project to practice Hibernate and JPA relationship mappings in a real REST API structure.
+This project was developed to strengthen backend persistence and relational mapping skills with Spring Boot, Hibernate, and JPA.
 
-The main focus was not building a complete banking product, but implementing entity relationships, cascade behavior, layered backend architecture, and clean API response models.
+The main goal was to implement entity relationships, cascade behavior, DTO-style response models, CRUD endpoints, and layered backend architecture in a database-backed REST API.
 
 The application includes customer, address, and account entities with one-to-one and one-to-many relationships.
 
@@ -25,7 +25,7 @@ The application includes customer, address, and account entities with one-to-one
 * Layered backend architecture
 * Relational database modeling
 
-## Core Concepts Practiced
+## Core Concepts
 
 * Hibernate entity mapping
 * JPA annotations
@@ -67,7 +67,7 @@ Each customer has one address.
 Customer 1 ─── 1 Address
 ```
 
-This relationship is used to practice one-to-one mapping and cascade behavior between related entities.
+This relationship demonstrates one-to-one mapping and cascade behavior between related entities.
 
 ### Customer - Account
 
@@ -77,7 +77,7 @@ A customer can have multiple accounts.
 Customer 1 ─── * Account
 ```
 
-This relationship is used to practice one-to-many mapping and account ownership logic.
+This relationship demonstrates one-to-many mapping and account ownership logic.
 
 ## Features
 
@@ -87,7 +87,7 @@ This relationship is used to practice one-to-many mapping and account ownership 
 * One-to-one relationship between customer and address
 * One-to-many relationship between customer and account
 * Account creation linked to an existing customer
-* Cascade behavior practice
+* Cascade behavior handling
 * DTO / response record usage
 * Layered backend structure
 * RESTful endpoint design
@@ -165,7 +165,7 @@ The project uses response models such as:
 
 DTO-style responses help separate internal entity structures from API response data.
 
-## What I Practiced
+## What This Project Demonstrates
 
 * Designing relational data models with JPA
 * Creating entity relationships with Hibernate
@@ -176,7 +176,7 @@ DTO-style responses help separate internal entity structures from API response d
 * Separating controller, service, repository, and entity layers
 * Creating clean response models with DTO / record structures
 * Handling customer-account relationships through API endpoints
-* Structuring a backend project for maintainability
+* Structuring backend code for maintainability
 
 ## Getting Started
 
@@ -231,8 +231,9 @@ You can test the endpoints using:
 
 ## Notes
 
-This project was built as a backend training project focused on Hibernate and JPA relationship mapping.
-The main purpose was to practice advanced entity relationships, cascade operations, DTO responses, CRUD endpoint design, and layered Spring Boot architecture.
+This project focuses on Hibernate/JPA relationship mapping, cascade behavior, DTO responses, CRUD endpoint design, and layered Spring Boot architecture.
+
+The main purpose is to demonstrate backend persistence design, entity relationship modeling, and maintainable REST API structure rather than building a full production banking system.
 
 ## Repository
 
