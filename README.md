@@ -1,61 +1,239 @@
-#  Java Hibernate Advance Mappings
+# Spring Hibernate Advanced Mappings
 
-### Proje Kurulumu
+A Java and Spring Boot REST API project focused on advanced Hibernate/JPA entity relationships, layered backend architecture, DTO responses, and CRUD endpoint design.
 
-Projeyi öncelikle forklayın ve clone edin.
-Daha sonra projeyi IntellijIDEA kullanarak açınız. README.md dosyasını dikkatli bir şekilde okuyarak istenenleri yapmaya çalışın.
-Proje sayımız ilerledikçe proje yönetimimizi kolaylaştırmak adına projelerimizi belli klasör kalıplarında saklamak işimizi kolaylaştırmak adına iyi bir alışkanlıktır.
-Örnek bir Lokasyon: Workintech/Sprint_1/Etud.
+The project simulates a simple banking domain with customers, addresses, and accounts to practice relational data modeling and entity mapping in a Spring Boot application.
 
-### Hedeflerimiz:
+## Overview
 
-### Banking Rest Api
+This project was developed as a hands-on backend project to practice Hibernate and JPA relationship mappings in a real REST API structure.
 
- ### Başlangıç
- * Maven dependency management sistemini kullanarak tüm dependencyleri install edin.
- * Uygulamanızı  ```8080``` portundan ayağa kaldırın.
- * Bir banka uygulaması için rest api dizayn etmeniz istenmektedir.
+The main focus was not building a complete banking product, but implementing entity relationships, cascade behavior, layered backend architecture, and clean API response models.
 
-### Görev 1
-* Veri tabanı dizaynınız şu şekilde olmalı. Toplam 3 tablo yazmanız gerekmektedir.
-* ```address``` tablosu => (id, street, no, city, country, description) kolonlarından oluşmalı.
-* ```id``` primary_key olarak işaretlenmeli. ```description``` alanı optional set edilmeli
-* ```customer``` tablosu => (id, first_name, last_name, email, salary, address_id) bilgilerini içermeli.
-* Her Customer sadece bir tane adrese sahip olabilir. 
-* Herhangi bir customer ilgili tablodan silinirse Customer'a ait olan address bilgisi de veri tabanından silinmelidir.
-* Herhangi bir adress bilgisi veri tabanından silinirse ilgili dataya sahip olan customer objesi veri tabanından silinmemelidir.
-* ```account``` tablosu (id, account_name, money_amount, customer_id) kolonlarından oluşmalı.
-* ```id``` primary_key olarak işaretlenmeli.
-* Bir Customer'in birden çok Account'u olabilir.
+The application includes customer, address, and account entities with one-to-one and one-to-many relationships.
 
- ### Görev 2
- *  ```controller```, ```service```, ```dao```, ```entity```,  isminde 4 adet daha paket oluşturunuz.
- * ```entity``` paketinin altına ```Address```, ```Customer```, ```Account``` isimli üç tane sınıf oluşturunuz.
- * ```Address```, ```Customer``` ve ```Account``` sınıfları project lombok annotationlarını kullanarak oluşturulmalılar.
- * ```Address``` ve ```Customer``` sınıflarının birbirleri arasındaki ilişkiyi tanımlayan annotationları kullanın.(One-to-One)
- * ```Customer``` ve ```Account``` sınıflarının birbirleri arasındaki ilişkiyi tanımlayan annotationları kullanın.(One-to-Many)
+## Tech Stack
 
- ### Görev 3
- * ```AddressController```, ```CustomerController```, ```AccountController``` isimli 3 tane controller yazmalısınız.
- * Amacımız CRUD işlemlerini tanımlayan endpointler yazmak. 
- * [GET]/workintech/address => veri tabanaında kayıtlı tüm address bilgilerini döner.
- * [GET]/workintech/address/{id} => İlgili id deki address objesini döner.
- * [POST]/workintech/address => Bir adet address objesini veri tabanına ekler.
- * [PUT]/workintech/address/{id} => İlgili id deki address objesinin değerlerini günceller.
- * [DELETE]/workintech/address/{id} => İlgili id değerindeki address objesini siler.
+* Java
+* Spring Boot
+* Spring Data JPA
+* Hibernate
+* Maven
+* REST API
+* Lombok
+* DTO / Record responses
+* Layered backend architecture
+* Relational database modeling
 
- * [GET]/workintech/customers => veri tabanında kayıtlı tüm customer bilgilerini döner.
- * [GET]/workintech/customers/{id} => İlgili id deki customer objesini dönmeli.
- * [POST]/workintech/customers => Bir adet customer objesini veri tabanına ekler
- * [PUT]/workintech/customers/{id} => İlgili id deki customer objesinin değerlerini günceller.
- * [DELETE]/workintech/customers/{id} => İlgili id değerindeki customer objesini siler.
+## Core Concepts Practiced
 
-* [GET]/workintech/accounts => veri tabanında kayıtlı tüm account bilgilerini döner.
-* [GET]/workintech/accounts/{id} => İlgili id deki account objesini dönmeli.
-* [POST]/workintech/accounts/{customerId} => Parametre olarak gelen id ile ilgili customeri bulur ve Account objesini Customer ile ilişkilendirip veri tabanına kaydeder. 
-* [PUT]/workintech/accounts/{customerId} =>Parametre olarak gelen id ile ilgili customeri bulur ve Account objesinin yeni bilgilerini güncelleyip Customer ile ilişkilendirip veri tabanına kaydeder.
-* [DELETE]/workintech/accounts/{id} => İlgili id değerindeki account objesini siler.
+* Hibernate entity mapping
+* JPA annotations
+* One-to-One relationship
+* One-to-Many relationship
+* Cascade operations
+* Entity lifecycle behavior
+* Repository / DAO layer
+* Service layer business logic
+* Controller-based REST endpoints
+* DTO response patterns
+* Relational database design
 
-### Görev 4
-* AccountResponse ve CustomerResponse adında 2 tane record oluşturunuz.
-* Endpointlerin dönüş tipleri bu sınıfların tipinde olmalıdır.
+## Domain Model
+
+The project is based on a simple banking data model:
+
+* `Address`
+* `Customer`
+* `Account`
+
+Relationship structure:
+
+```text
+Address
+   ↓ One-to-One
+Customer
+   ↓ One-to-Many
+Account
+```
+
+## Entity Relationships
+
+### Address - Customer
+
+Each customer has one address.
+
+```text
+Customer 1 ─── 1 Address
+```
+
+This relationship is used to practice one-to-one mapping and cascade behavior between related entities.
+
+### Customer - Account
+
+A customer can have multiple accounts.
+
+```text
+Customer 1 ─── * Account
+```
+
+This relationship is used to practice one-to-many mapping and account ownership logic.
+
+## Features
+
+* Address CRUD operations
+* Customer CRUD operations
+* Account CRUD operations
+* One-to-one relationship between customer and address
+* One-to-many relationship between customer and account
+* Account creation linked to an existing customer
+* Cascade behavior practice
+* DTO / response record usage
+* Layered backend structure
+* RESTful endpoint design
+
+## Main API Endpoints
+
+### Address Endpoints
+
+| Method | Endpoint                   | Description          |
+| ------ | -------------------------- | -------------------- |
+| GET    | `/workintech/address`      | Get all addresses    |
+| GET    | `/workintech/address/{id}` | Get address by ID    |
+| POST   | `/workintech/address`      | Create a new address |
+| PUT    | `/workintech/address/{id}` | Update an address    |
+| DELETE | `/workintech/address/{id}` | Delete an address    |
+
+### Customer Endpoints
+
+| Method | Endpoint                     | Description           |
+| ------ | ---------------------------- | --------------------- |
+| GET    | `/workintech/customers`      | Get all customers     |
+| GET    | `/workintech/customers/{id}` | Get customer by ID    |
+| POST   | `/workintech/customers`      | Create a new customer |
+| PUT    | `/workintech/customers/{id}` | Update a customer     |
+| DELETE | `/workintech/customers/{id}` | Delete a customer     |
+
+### Account Endpoints
+
+| Method | Endpoint                            | Description                                        |
+| ------ | ----------------------------------- | -------------------------------------------------- |
+| GET    | `/workintech/accounts`              | Get all accounts                                   |
+| GET    | `/workintech/accounts/{id}`         | Get account by ID                                  |
+| POST   | `/workintech/accounts/{customerId}` | Create an account for a customer                   |
+| PUT    | `/workintech/accounts/{customerId}` | Update an account and associate it with a customer |
+| DELETE | `/workintech/accounts/{id}`         | Delete an account                                  |
+
+## Backend Architecture
+
+The project follows a layered backend architecture:
+
+```text
+Controller Layer
+↓
+Service Layer
+↓
+Repository / DAO Layer
+↓
+Entity / Database Layer
+```
+
+This structure separates request handling, business logic, persistence operations, and database modeling.
+
+## Project Structure
+
+```text
+src/
+ └── main/
+     ├── java/
+     │   └── ...
+     │       ├── controller/
+     │       ├── service/
+     │       ├── dao/
+     │       ├── entity/
+     │       └── dto/
+     └── resources/
+         └── application.properties
+```
+
+## DTO / Response Models
+
+The project uses response models such as:
+
+* `CustomerResponse`
+* `AccountResponse`
+
+DTO-style responses help separate internal entity structures from API response data.
+
+## What I Practiced
+
+* Designing relational data models with JPA
+* Creating entity relationships with Hibernate
+* Implementing one-to-one mappings
+* Implementing one-to-many mappings
+* Managing cascade operations
+* Building CRUD endpoints with Spring Boot
+* Separating controller, service, repository, and entity layers
+* Creating clean response models with DTO / record structures
+* Handling customer-account relationships through API endpoints
+* Structuring a backend project for maintainability
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+* Java 17+
+* Maven
+* A relational database
+* IntelliJ IDEA or another Java IDE
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/emreyildirim-33/spring-hibernate-advanced-mappings.git
+cd spring-hibernate-advanced-mappings
+```
+
+Configure your database connection in `application.properties`.
+
+Example:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/your_database
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+```
+
+Run the project:
+
+```bash
+./mvnw spring-boot:run
+```
+
+The application runs locally at:
+
+```text
+http://localhost:8080
+```
+
+## API Testing
+
+You can test the endpoints using:
+
+* Postman
+* IntelliJ HTTP Client
+* Browser for simple GET requests
+
+## Notes
+
+This project was built as a backend training project focused on Hibernate and JPA relationship mapping.
+The main purpose was to practice advanced entity relationships, cascade operations, DTO responses, CRUD endpoint design, and layered Spring Boot architecture.
+
+## Repository
+
+GitHub: https://github.com/emreyildirim-33/spring-hibernate-advanced-mappings
